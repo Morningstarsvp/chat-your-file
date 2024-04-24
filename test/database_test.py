@@ -2,23 +2,16 @@ import uuid
 
 from database import *
 
-message = MessageModel(
-    conversation_id=uuid.uuid4().hex,
-    chat_type='test',
-    query='query',
-    response='response'
-)
-
-message2 = MessageModel(
-    id=1,
-    conversation_id=uuid.uuid4().hex,
-    chat_type='aaaaaaa',
-    query='111111',
-    response='modify response'
-)
-
-upsert_message(message)
-# print(get_messages())
-# message = get_message_by_id(1)
-# message.response = 'modify response'
-# print(get_messages())
+# conversation = ConversationModel(name='test', chat_type="llm_chat_test")
+# message_1 = MessageModel(id=uuid.uuid1().hex, query="query", response="response")
+# message_2 = MessageModel(id=uuid.uuid1().hex, query="query2", response="response2")
+# conversation.messages.append(message_1)
+# conversation.messages.append(message_2)
+# id = upsert_conversation(conversation)
+#
+# from memory import ConversationDatabaseBufferMemory
+#
+# memory = ConversationDatabaseBufferMemory(conversation_id=id)
+# print(memory.memory_variables)
+# print(memory.load_memory_variables({}))
+# print(memory)

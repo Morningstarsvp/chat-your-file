@@ -10,10 +10,10 @@ def upsert_conversation(session: Session, conversation: ConversationModel) -> st
 
 
 @with_session
-def get_conversation_by_id(session: Session, conversation_id: int):
+def get_conversation_by_id(session: Session, conversation_id: str):
     return session.query(ConversationModel).filter(ConversationModel.id == conversation_id).first()
 
 
 @with_session
-def get_conversations(session: Session):
+def get_all_conversation(session: Session):
     return session.query(ConversationModel).all()

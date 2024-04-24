@@ -1,1 +1,1 @@
-from ConversationCallbackHandler import ConversationCallbackHandler
+from callback_handler.ConversationCallbackHandler import ConversationCallbackHandler

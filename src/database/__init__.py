@@ -1,6 +1,7 @@
+from database.mapper import get_session, generate_session, engine
 from database.mapper.conversation_mapper import (
     get_conversation_by_id,
-    get_conversations,
+    get_all_conversation,
     upsert_conversation,
 )
 from database.mapper.message_mapper import (
@@ -9,7 +10,10 @@ from database.mapper.message_mapper import (
     upsert_message,
     get_message_by_conversation_id
 )
+from database.models import Base
 from database.models import (
     MessageModel,
     ConversationModel,
 )
+
+Base.metadata.create_all(engine)

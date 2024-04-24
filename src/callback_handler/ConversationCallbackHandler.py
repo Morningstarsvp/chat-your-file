@@ -3,16 +3,20 @@ from typing import Any, Dict, List
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.schema import LLMResult
 
-from database import upsert_message, get_message_by_id, MessageModel
+from database import upsert_message, MessageModel
 
 
 class ConversationCallbackHandler(BaseCallbackHandler):
+    """
+    ConversationCallbackHandler:会话回调处理器
+    override:
+        on_llm_start
+        on_llm_end:将LLM response存入数据库
+    """
     raise_error: bool = True
 
-    def __init__(self, message_id: int, conversation_id: str, chat_type: str, query: str):
-        self.message_id = message_id
+    def __init__(self, conversation_id: str, query: str):
         self.conversation_id = conversation_id
-        self.chat_type = chat_type
         self.query = query
         self.start_at = None
 
@@ -34,7 +38,7 @@ class ConversationCallbackHandler(BaseCallbackHandler):
         :param kwargs:
         :return:
         """
+        print(response)
         response = response.generations[0][0].text
-        message: MessageModel = get_message_by_id(message_id=self.message_id)
-        message.response = response
-        upsert_message(message)
+        new_message = MessageModel(conversation_id=self.conversation_id, query=self.query, response=response)
+        upsert_message(new_message)

@@ -1,0 +1,6 @@
+POST http://localhost:8000/chat/llm_chat
+Content-Type: application/json
+
+{
+  "query": "你好！"
+}
