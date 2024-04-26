@@ -2,5 +2,37 @@ POST http://localhost:8000/chat/llm_chat
 Content-Type: application/json
 
 {
-  "query": "你好！"
+  "conversation_id": "400cf0b1-2ea8-4d98-967e-9738e490628a",
+  "query": "验证RAG框架的性能可以采用哪些方式?"
+}
+
+###
+POST http://localhost:8000/chat/file_chat
+Content-Type: application/json
+
+{
+  "conversation_id": "34b967a5-c29e-4488-91c8-ceaba5b0b483",
+  "file_vs_id": "1",
+  "query": "请回答你刚才提出的第四个问题"
+}
+
+###
+POST http://172.31.48.1:8000/chat/file_chat
+Content-Type: application/json
+
+{
+  "conversation_id": "34b967a5-c29e-4488-91c8-ceaba5b0b483",
+  "file_vs_id": "1",
+  "query": "请回答你刚才提出的第四个问题"
+}
+
+
+###
+POST http:// 192.168.110.31:8000/chat/file_chat
+Content-Type: application/json
+
+{
+  "conversation_id": "34b967a5-c29e-4488-91c8-ceaba5b0b483",
+  "file_vs_id": "1",
+  "query": "请回答你刚才提出的第四个问题"
 }

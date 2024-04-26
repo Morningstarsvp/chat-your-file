@@ -1,9 +1,14 @@
+import logging
 from typing import Any, Dict, List
 
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.schema import LLMResult
 
-from database import upsert_message, MessageModel
+from database import schemas, crud
+
+from config import get_logger
+
+logger = get_logger(__name__)
 
 
 class ConversationCallbackHandler(BaseCallbackHandler):
@@ -29,6 +34,7 @@ class ConversationCallbackHandler(BaseCallbackHandler):
             self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
     ) -> None:
         # 如果想存更多信息，则prompts 也需要持久化
+        logger.info(f"ConversationCallbackHandler on_llm_start: pass")
         pass
 
     def on_llm_end(self, response: LLMResult, **kwargs: Any) -> None:
@@ -38,7 +44,7 @@ class ConversationCallbackHandler(BaseCallbackHandler):
         :param kwargs:
         :return:
         """
-        print(response)
+        logger.info(f"ConversationCallbackHandler on_llm_end: {response}")
         response = response.generations[0][0].text
-        new_message = MessageModel(conversation_id=self.conversation_id, query=self.query, response=response)
-        upsert_message(new_message)
+        new_message = schemas.MessageBase(query=self.query, response=response)
+        crud.create_message(new_message, conversation_id=self.conversation_id)

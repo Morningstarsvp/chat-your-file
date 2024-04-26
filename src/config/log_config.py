@@ -11,9 +11,13 @@ langchain.verbose = True
 
 # 设置日志格式
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-logging.basicConfig(format=LOG_FORMAT)
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+level = logging.INFO if log_verbose else logging.WARN
+
+
+def get_logger(name):
+    logging.basicConfig(format=LOG_FORMAT, level=logging.INFO)
+    return logging.getLogger(name)
+
 
 # 设置日志存储路径
 LOG_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')

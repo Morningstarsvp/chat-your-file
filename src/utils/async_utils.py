@@ -5,8 +5,10 @@ from typing import (
 )
 
 from config import (
-    log_verbose, logger
+    log_verbose
 )
+
+logger = logging.getLogger(__name__)
 
 
 async def wrap_done(fn: Awaitable, event: asyncio.Event):

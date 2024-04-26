@@ -3,19 +3,18 @@ from typing import List, Dict, Any
 from langchain.memory import ChatMessageHistory
 from langchain.memory.chat_memory import BaseChatMemory
 
-from database import get_conversation_by_id, MessageModel
+from database import *
 
 
 class ConversationDatabaseBufferMemory(BaseChatMemory):
+    conversation_id: str
     human_prefix: str = "Human"
     ai_prefix: str = "AI"
-    conversation_id: str
     memory_key: str = "chat_history"
 
     @property
     def buffer(self):
-        conversation = get_conversation_by_id(conversation_id=self.conversation_id)
-        messages: list[MessageModel] = conversation.messages
+        messages: list[schemas.Message] = crud.get_message_list_by_conversation_id(self.conversation_id)
         chat_history = ChatMessageHistory()
         for message in messages:
             chat_history.add_user_message(message.query)

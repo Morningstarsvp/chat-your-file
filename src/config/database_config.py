@@ -1,6 +1,7 @@
 import os
 
 # sqlalchemy数据库配置
+DATABASE_ECHO = False
 # 默认使用sqlite数据库
 KB_ROOT_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "knowledge_base")
 if not os.path.exists(KB_ROOT_PATH):
